@@ -1,0 +1,16 @@
+﻿@model UsersTimeLog.Models.CombinedUsersDataViewModel
+
+@{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col bg-success">
+            @Html.Partial("_UsersTimelogs", Model)
+        </div>
+        <div class="col-md-6 col bg-warning">
+            @Html.Partial("_TopUsersTimelogs", Model.TopUsersTimelogs)
+        </div>
+    </div>
+</div>

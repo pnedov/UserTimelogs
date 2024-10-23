@@ -1,0 +1,29 @@
+﻿@model IList<UsersTimeLog.Models.Timelogs>
+
+
+<h2>Top Users Timelogs</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Hours</th>
+            <th>User</th>
+            <th>Email</th>
+            <th>Project</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var log in Model)
+        {
+            <tr>
+                <td>@log.Id</td>
+                <td>@log.Date.ToShortDateString()</td>
+                <td>@log.Hours</td>
+                <td>@log.Users.FirstName @log.Users.LastName</td>
+                <td>@log.Users.Email</td>
+                <td>@log.Projects.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

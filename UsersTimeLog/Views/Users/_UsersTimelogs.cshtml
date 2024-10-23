@@ -1,0 +1,99 @@
+﻿@using UsersTimeLog.Utilities;
+@model UsersTimeLog.Models.CombinedUsersDataViewModel
+
+@{
+    var pageNumber = Model.PageNumber;
+    var totalPagesCount = Model.TotalPagescount;
+    var fromDate = Context.Request.Query["fromDate"];
+    var toDate = Context.Request.Query["toDate"];
+    var sortColumn = Context.Request.Query["sortColumn"];
+    var sortOrder = Context.Request.Query["sortOrder"];
+}
+
+<h2>Users Timelogs</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 mt-2">
+            <form method="get" action="/api/users/combined" class="form-horizontal">
+                <div class="row mt-0 g-0">
+                    <div class="col-md-5 col-lg-5">
+                        <div class="row form-row pt-4">
+                            <label class="col-form-label col-md-2">From:</label>
+                            <div class="col-md-8">
+                                <input type="date" id="fromDate" name="fromDate" value="@fromDate" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-5 ml-0">
+                        <div class="row form-row pt-4">
+                            <label for="toDate" class="col-form-label col-md-1">To:</label>
+                            <div class="col-md-8">
+                                <input type="date" id="toDate" name="toDate" value="@toDate" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 pt-4 ml-1">
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped table-sm table-hover list">
+    <thead>
+        <tr>
+            <th data-sortable="true" data-field="@GlobalConstants.DefaultSortColumn"><a href="/api/users/combined?currentpage=@pageNumber&sortColumn=@GlobalConstants.DefaultSortColumn&sortOrder=@(sortOrder == "asc" ? "desc" : "asc")&fromDate=@fromDate&toDate=@toDate">ID</a></th>
+            <th><a href="/api/users/combined?currentpage=@pageNumber&sortColumn=@GlobalConstants.DateSortColumn&sortOrder=@(sortOrder == "asc" ? "desc" : "asc")&fromDate=@fromDate&toDate=@toDate">Date</a></th>
+            <th><a href="/api/users/combined?currentpage=@pageNumber&sortColumn=@GlobalConstants.HoursSortColumn&sortOrder=@(sortOrder == "asc" ? "desc" : "asc")&fromDate=@fromDate&toDate=@toDate">Hours</a></th>
+            <th><a href="/api/users/combined?currentpage=@pageNumber&sortColumn=@GlobalConstants.UsersSortColumn&sortOrder=@(sortOrder == "asc" ? "desc" : "asc")&fromDate=@fromDate&toDate=@toDate">User</a></th>
+            <th><a href="/api/users/combined?currentpage=@pageNumber&sortColumn=@GlobalConstants.EmailsSortColumn&sortOrder=@(sortOrder == "asc" ? "desc" : "asc")&fromDate=@fromDate&toDate=@toDate">Email</a></th>
+            <th><a href="/api/users/combined?currentpage=@pageNumber&sortColumn=@GlobalConstants.ProjectsSortColumn&sortOrder=@(sortOrder == "asc" ? "desc" : "asc")&fromDate=@fromDate&toDate=@toDate">Project</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var log in Model.UsersTimelogs)
+        {
+            <tr>
+                <td>@log.Id</td>
+                <td>@log.Date.ToShortDateString()</td>
+                <td>@log.Hours</td>
+                <td>@log.Users.FirstName @log.Users.LastName</td>
+                <td>@log.Users.Email</td>
+                <td>@log.Projects.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="container">
+    <div class="row">
+        <div class="col bg-danger ml-2">
+            <ul class="pagination">
+                @if (totalPagesCount > 1)
+                {
+                    <li class="page-item @(pageNumber == 1 ? "disabled" : "")">
+                        <a class="page-link" href="/api/users/combined?currentpage=1&fromDate=@fromDate&toDate=@toDate&sortColumn=@sortColumn&sortOrder=@sortOrder">First</a>
+                    </li>
+                    <li class="page-item @(pageNumber == 1 ? "disabled" : "")">
+                        <a class="page-link" href="/api/users/combined?currentpage=@(pageNumber - 1)&fromDate=@fromDate&toDate=@toDate&sortColumn=@sortColumn&sortOrder=@sortOrder">Previous</a>
+                    </li>
+                    @for (int i = pageNumber; i >= pageNumber && i < pageNumber + 10; i++)
+                    {
+                        <li class="page-item @(pageNumber == i ? "active" : "")">
+                            <a class="page-link" href="/api/users/combined?currentpage=@i&fromDate=@fromDate&toDate=@toDate&sortColumn=@sortColumn&sortOrder=@sortOrder">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(pageNumber == totalPagesCount ? "disabled" : "")">
+                        <a class="page-link" href="/api/users/combined?currentpage=@(pageNumber + 1)&fromDate=@fromDate&toDate=@toDate&sortColumn=@sortColumn&sortOrder=@sortOrder">Next</a>
+                    </li>
+                    <li class="page-item @(pageNumber == totalPagesCount ? "disabled" : "")">
+                        <a class="page-link" href="/api/users/combined?currentpage=@totalPagesCount&fromDate=@fromDate&toDate=@toDate&sortColumn=@sortColumn&sortOrder=@sortOrder">Last</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
