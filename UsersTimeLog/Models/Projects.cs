@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-//using Microsoft.EntityFrameworkCore.Metadata;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
