@@ -1,6 +1,6 @@
 ﻿namespace UsersTimeLog.Models;
 
-public class CombinedUsersDataViewModel
+public class CombinedModel
 {
 	public IList<Timelogs> UsersTimelogs { get; set; } = [];
 

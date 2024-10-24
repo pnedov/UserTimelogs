@@ -107,18 +107,6 @@ public class UsersRepository : IUsersRepository
             .ToListAsync(token);
     }
 
-    //public async Task<IList<Timelogs>> GetTopUsersSimpleAsync(DateTime? start, DateTime? end, int topCount, CancellationToken token)
-    //{
-    //    IQueryable<Timelogs> query = _context.Timelogs;
-
-    //    query = query.Where(x => (!start.HasValue || x.Date >= start.Value.Date) && (!end.HasValue || x.Date <= end.Value.Date));
-
-    //    return await query
-    //        .OrderByDescending(x => x.Hours)
-    //        .Take(topCount)
-    //        .ToListAsync(token);
-    //}
-
     public async Task<Timelogs?> GetUserByIdAsync(int userId, CancellationToken token)
     {
         return await _context.Timelogs

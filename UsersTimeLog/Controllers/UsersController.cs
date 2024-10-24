@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using UsersTimeLog.Models;
 using UsersTimeLog.Services;
 
@@ -68,7 +67,7 @@ namespace UsersTimeLog.Controllers
                 double pageCount = (double)((decimal)usersTimelogs.TotalRecords / Convert.ToDecimal(pageMaxSize));
 
                 // Return the users and pagination details as a string
-                var combinedResult = new CombinedUsersDataViewModel
+                var combinedResult = new CombinedModel
                 {
                     UsersTimelogs = usersTimelogs.Timelogs,
                     TopUsersTimelogs = new List<Timelogs>(),

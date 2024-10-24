@@ -33,14 +33,5 @@ public class UsersService : IUsersService
     {
         return await _repo.GetUserByIdAsync(userId, token);
     }
-
-    //public async Task<IList<Timelogs>> GetUsersWithPaginationAsync(string start, string end, int page, int pageSize, CancellationToken token)
-    //{
-    //    DateTime? startDate = string.IsNullOrEmpty(start) ? null : DateTime.Parse(start);
-    //    DateTime? endDate = string.IsNullOrEmpty(end) ? null : DateTime.Parse(end);
-
-    //    int skip = (page - 1) * pageSize;
-    //    return await _repo.GetUsersAsync(startDate, endDate, skip, pageSize, token);
-    //}
 }
 
